@@ -13,5 +13,6 @@ Click on the extension icon anytime and go to a page where you can enter the tex
 
 ## Docker
 Docker applications:
-1) WEB server to link to external LanguageTool server: [In progress]().
-2) WEB server + LanguageTool server: [In progress]().
+1) WEB server (spell check using LanguageTool web extension): [In progress]()
+2) WEB server to link to external LanguageTool server: [In progress]().
+3) WEB server + LanguageTool server: [In progress]().
