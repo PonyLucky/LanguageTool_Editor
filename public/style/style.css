@@ -1,0 +1,138 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    background-color: #333;
+    color: #fff;
+}
+header {
+    text-align: center;
+    margin: 0;
+    padding: 10px;
+}
+
+footer {
+    text-align: center;
+    margin: 0;
+    /* Put the footer on the bottom of the page */
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+#editor {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1.2em;
+    resize: none;
+    outline: none;
+    /* Take the rest of the place in the page */
+    position: absolute;
+    top: 100px;
+    bottom: 50px;
+    height: calc(100% - 150px);
+    /* Add a background */
+    background-color: #fff;
+    color: #333;
+}
+
+#languages {
+    /* List of languages in a select. We want it to be bottom left */
+    position: absolute;
+    bottom: 5px;
+    left: 10px;
+
+    /* Add a background */
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 1.2em;
+}
+
+/*
+Style for check div, we want it to be bottom right.
+.check-ok -> green and checkmark
+.check-err -> red and cross
+.check-pending -> grey and question mark
+*/
+.check {
+    position: absolute;
+    bottom: 60px;
+    right: 10px;
+    font-size: 1.2em;
+    padding: 5px;
+    border: 0px solid #ccc;
+    /* Check div is a circle with a checkmark/cross/question mark */
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    line-height: 25px;
+    color: #fff;
+    /* Add a shadow */
+    box-shadow: 0 0 5px #000;
+}
+.check-ok {
+    background-color: #238636;
+}
+.check-ok::before {
+    content: "\2713";
+}
+.check-err {
+    background-color: #d73a49;
+}
+.check-err::before {
+    content: "\2717";
+}
+.check-pending {
+    background-color: #333;
+}
+.check-pending::before {
+    content: "\003F";
+}
+
+.hidden {
+    display: none;
+}
+
+/* .wait class shows an animation next to check to show to be are doing something */
+.wait {
+    position: absolute;
+    bottom: 64px;
+    right: 55px;
+    color: #333;
+    font-size: 3em;
+}
+.wait span {
+    animation-name: blink;
+    animation-duration: 1.4s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+}
+.wait span:nth-child(2) {
+    animation-delay: .2s;
+}
+.wait span:nth-child(3) {
+    animation-delay: .4s;
+}
+
+@keyframes blink {
+    0% {
+      opacity: .2;
+    }
+    20% {
+      opacity: 1;
+    }
+    100% {
+      opacity: .2;
+    }
+}
+
+/* .text-error class, underline the text in red */
+.text-error {
+    text-decoration: underline;
+    text-decoration-color: #d73a49;
+}
