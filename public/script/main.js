@@ -8,7 +8,8 @@ document.addEventListener("DOMContentLoaded", function() {
         idLanguage='languages',
         idLevel='level',
         idCheck='check',
-        idWait='wait'
+        idWait='wait',
+        idMessage="message"
     );
     // Initialize the language editor
     languageEditor.init();

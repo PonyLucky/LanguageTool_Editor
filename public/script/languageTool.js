@@ -3,7 +3,7 @@
 //              language detection tool for the browser.
 //              We will fetch the correction from the server and
 //              return the result to the caller.
-
+//
 // To check a text, fetch 'IP/v2/check' with the following parameters:
 // - text: the text to be checked
 // - language: the language of the text
@@ -78,10 +78,7 @@
 //         ]
 //     ]
 // }
-// 
-// From the response object, we need to extract :
-// - matches
-
+//
 // To get all languages, fetch 'IP/v2/languages', response is a JSON object :
 // [
 //     {
@@ -105,31 +102,32 @@ LanguageTool.prototype.getLanguages = function() {
         xmlhttp.open("GET", this.server + "/v2/languages", false);
         xmlhttp.send();
         this.languages = JSON.parse(xmlhttp.responseText);
-    }
-    // Remove parentheses from language names and remove duplicates
-    var languages = [];
-    for (var i = 0; i < this.languages.length; i++) {
-        var language = this.languages[i];
-        var name = language.name;
-        var index = name.indexOf('(');
-        if (index != -1) {
-            name = name.substring(0, index);
-        }
-        language.name = name.trim();
-        
-        // Check if the language name is already in the list
-        var found = false;
-        for (var j = 0; j < languages.length; j++) {
-            if (languages[j].name == language.name) {
-                found = true;
-                break;
+
+        // Remove parentheses from language names and remove duplicates
+        var languages = [];
+        for (var i = 0; i < this.languages.length; i++) {
+            var language = this.languages[i];
+            var name = language.name;
+            var index = name.indexOf('(');
+            if (index != -1) {
+                name = name.substring(0, index);
+            }
+            language.name = name.trim();
+            
+            // Check if the language name is already in the list
+            var found = false;
+            for (var j = 0; j < languages.length; j++) {
+                if (languages[j].name == language.name) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                languages.push(language);
             }
         }
-        if (!found) {
-            languages.push(language);
-        }
+        this.languages = languages;
     }
-    this.languages = languages;
     return this.languages;
 }
 

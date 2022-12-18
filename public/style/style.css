@@ -1,3 +1,8 @@
+* {
+    /* transition background color */
+    transition: background-color 0.2s;
+}
+
 body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
@@ -35,6 +40,7 @@ footer {
     /* Add a background */
     background-color: #fff;
     color: #333;
+    overflow-y: scroll;
 }
 
 #languages {
@@ -54,9 +60,9 @@ footer {
 
 /*
 Style for check div, we want it to be bottom right.
-.check-ok -> green and checkmark
-.check-err -> red and cross
-.check-pending -> grey and question mark
+.check-ok -> green and checkmark (✓)
+.check-err -> red and cross product (✕)
+.check-pending -> grey and question mark (?)
 */
 .check {
     position: absolute;
@@ -64,34 +70,40 @@ Style for check div, we want it to be bottom right.
     right: 10px;
     font-size: 1.2em;
     padding: 5px;
-    border: 0px solid #ccc;
-    /* Check div is a circle with a checkmark/cross/question mark */
+    border: none;
     border-radius: 50%;
     width: 25px;
     height: 25px;
     text-align: center;
     line-height: 25px;
     color: #fff;
-    /* Add a shadow */
-    box-shadow: 0 0 5px #000;
 }
 .check-ok {
     background-color: #238636;
 }
+.check-ok:hover {
+    background-color: #2ea043;
+}
 .check-ok::before {
-    content: "\2713";
+    content: "\2713"; /* Checkmark */
 }
 .check-err {
     background-color: #d73a49;
 }
+.check-err:hover {
+    background-color: #cb2431;
+}
 .check-err::before {
-    content: "\2717";
+    content: "\2715"; /* Cross product */
 }
 .check-pending {
     background-color: #333;
 }
+.check-pending:hover {
+    background-color: #555;
+}
 .check-pending::before {
-    content: "\003F";
+    content: "\003F"; /* Question mark */
 }
 
 .hidden {
@@ -131,8 +143,123 @@ Style for check div, we want it to be bottom right.
     }
 }
 
-/* .text-error class, underline the text in red */
-.text-error {
+/* .text classes */
+.text {
+    cursor: pointer;
     text-decoration: underline;
+}
+.text:hover {
+    text-decoration: none;
+}
+/* .text-typo class, underline the text in red */
+.text-typo {
     text-decoration-color: #d73a49;
+    background-color: rgba(215, 58, 73, 0.2);
+}
+/* .text-style class, underline the text in blue */
+.text-style {
+    text-decoration-color: #a194ff;
+    background-color: rgba(161, 148, 255, 0.2);
+}
+/* .text-other class, underline the text in yellow */
+.text-other {
+    text-decoration-color: #ffd33d;
+    background-color: rgba(255, 211, 61, 0.2);
+}
+.text-current {
+    /* Bold */
+    font-weight: bold;
+}
+
+/* .message class, show a message in the bottom right */
+.message {
+    position: absolute;
+    bottom: 60px;
+    right: 55px;
+    font-size: 1.2em;
+    padding: 20px;
+    border-radius: 5px;
+    /* max-height */
+    max-height: 50%;
+    /* overflow */
+    overflow: auto;
+    /* width */
+    max-width: 300px;
+    /* Add a background */
+    background-color: #fff;
+    color: #333;
+    /* Add a shadow */
+    box-shadow: 0 0 5px #000;
+    overflow: scroll;
+}
+.message-title {
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    margin: 0;
+    padding: 0;
+}
+/*
+.message-replacements, div that contains other divs.
+We want to show them as a flexbox and wrap them.
+*/
+.message-replacements {
+    display: flex;
+    flex-wrap: wrap;
+}
+.message-replacements div {
+    /* Add a margin */
+    margin: 5px;
+    /* Add a padding */
+    padding: 5px;
+    /* Add a border radius */
+    border-radius: 5px;
+    /* Add a cursor */
+    cursor: pointer;
+    /* No selection */
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    /* Display the div with bg in green */
+    background-color: #238636;
+    /* color */
+    color: #fff;
+    /* Typography to sans-sherif */
+    font-family: sans-serif;
+}
+.message-replacements div:hover {
+    /* Display the div with bg in green */
+    background-color: #2ea043;
+}
+.message-ignore {
+    /* Add a margin */
+    margin: 5px;
+    /* Add a padding */
+    padding: 5px;
+    /* Add a border radius */
+    border-radius: 5px;
+    /* Add a cursor */
+    cursor: pointer;
+    /* No selection */
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    background-color: #333;
+    /* color */
+    color: #fff;
+    /* Typography to sans-sherif */
+    font-family: sans-serif;
+    /* Center the text */
+    text-align: center;
+}
+.message-ignore:hover {
+    background-color: #d73a49;
+}
+.message-rule {
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+    margin: 10px 0;
 }
