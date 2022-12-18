@@ -1,12 +1,8 @@
 // LANGUAGE global variable
-var LANGUAGE = navigator.language || navigator.userLanguage
+var LANGUAGE = navigator.language || navigator.userLanguage || navigator.browserLanguage || navigator.systemLanguage || 'en';
 // If language contains a dash, remove the last part
 if (LANGUAGE.indexOf('-') != -1) {
     LANGUAGE = LANGUAGE.split('-')[0];
-}
-// If language if not supported, set it to English
-if (LANGUAGE == null) {
-    LANGUAGE = 'en';
 }
 
 // Utility function to get and restore the caret position
