@@ -11,7 +11,8 @@ document.addEventListener("DOMContentLoaded", function() {
         idLevel='level',
         idCheck='check',
         idWait='wait',
-        idMessage="message"
+        idMessage="message",
+        idInfoText="info-text",
     );
     // Initialize the language editor
     languageEditor.init();

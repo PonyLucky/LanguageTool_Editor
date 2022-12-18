@@ -263,3 +263,17 @@ We want to show them as a flexbox and wrap them.
     background-color: #ccc;
     margin: 10px 0;
 }
+
+/* .info-text class, show a message in the bottom right */
+.info-text {
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+    margin: 0;
+    padding: 0;
+    /* Color in light grey */
+    color: #ccc;
+}
+.info-text::after {
+    content: " \1F6C8"; /* Information */
+}

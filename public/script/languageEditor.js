@@ -31,7 +31,17 @@ function saveCaretPosition(context){
 }
 
 // Constructor
-function LanguageEditor(url="https://languagetool.org/api", level="normal", idEditor="editor", idLanguage="languages", idLevel="level", idCheck="check", idWait="wait", idMessage="message") {
+function LanguageEditor(
+    url="https://languagetool.org/api",
+    level="normal",
+    idEditor="editor",
+    idLanguage="languages",
+    idLevel="level",
+    idCheck="check",
+    idWait="wait",
+    idMessage="message",
+    idInfoText="info-text"
+) {
     this.languageTool = new LanguageTool(url);
     this.languages = this.languageTool.getLanguages();
     this.level = level; // normal, picky
@@ -45,6 +55,7 @@ function LanguageEditor(url="https://languagetool.org/api", level="normal", idEd
     this.idCheck = idCheck;
     this.idWait = idWait;
     this.idMessage = idMessage;
+    this.idInfoText = idInfoText;
 }
 
 // Get the editor
@@ -76,6 +87,11 @@ LanguageEditor.prototype.getWait = function() {
 // Get the message div
 LanguageEditor.prototype.getMessage = function() {
     return document.getElementById(this.idMessage);
+}
+
+// Get the info text div
+LanguageEditor.prototype.getInfoText = function() {
+    return document.getElementById(this.idInfoText);
 }
 
 // Set state
@@ -142,6 +158,9 @@ LanguageEditor.prototype.check = function() {
 
     // Hide message
     this.message();
+
+    // Update textInfos
+    this.updateTextInfos();
     
     // If text is empty, set state to ok
     if (text == "") {
@@ -217,7 +236,8 @@ LanguageEditor.prototype.message = function(show=false) {
             let text = "No replacements";
             try {
                 // Change text depending of browser language
-                switch (navigator.language) {
+                // fr, es, de, it, pt, ru, pl, nl, ja, zh, ko, sv, da
+                switch (navigator.language || navigator.userLanguage) {
                     case "fr":
                         text = "Pas de remplacements...";
                         break;
@@ -274,7 +294,8 @@ LanguageEditor.prototype.message = function(show=false) {
         var textIgnore = "Ignore";
         try {
             // Change text depending of browser language
-            switch (navigator.language) {
+            // fr, es, de, it, pt, ru, pl, nl, ja, zh, ko, sv, da
+            switch (navigator.language || navigator.userLanguage) {
                 case "fr":
                     textIgnore = "Ignorer";
                     break;
@@ -471,6 +492,9 @@ LanguageEditor.prototype.replace = function(text) {
         // Check again
         this.check();
     }
+
+    // Update textInfos
+    this.updateTextInfos();
 }
 
 // Ignore
@@ -508,6 +532,68 @@ LanguageEditor.prototype.ignoreText = function() {
     }
 }
 
+// textInfos
+LanguageEditor.prototype.updateTextInfos = function() {
+    // Update the text infos, if any
+    // nb chars, nb words
+    var editor = this.getEditor();
+    var text = editor.innerText;
+    var nbChars = text.length;
+    var nbWords = text.split(" ").length;
+
+    // Get text infos
+    var textInfos = this.getInfoText();
+    var content = "{0} characters, {1} words";
+
+    try {
+        // Change text depending of browser language
+        // fr, es, de, it, pt, ru, pl, nl, ja, zh, ko, sv, da
+        switch (navigator.language || navigator.userLanguage) {
+            case "fr":
+                content = "{0} caractères, {1} mots";
+                break;
+            case "es":
+                content = "{0} caracteres, {1} palabras";
+                break;
+            case "de":
+                content = "{0} Zeichen, {1} Wörter";
+                break;
+            case "it":
+                content = "{0} caratteri, {1} parole";
+                break;
+            case "pt":
+                content = "{0} caracteres, {1} palavras";
+                break;
+            case "ru":
+                content = "{0} символов, {1} слов";
+                break;
+            case "pl":
+                content = "{0} znaków, {1} słów";
+                break;
+            case "nl":
+                content = "{0} tekens, {1} woorden";
+                break;
+            case "ja":
+                content = "{0} 文字, {1} 語";
+                break;
+            case "zh":
+                content = "{0} 字符, {1} 字";
+                break;
+            case "ko":
+                content = "{0} 문자, {1} 단어";
+                break;
+            case "sv":
+                content = "{0} tecken, {1} ord";
+                break;
+            case "da":
+                content = "{0} tegn, {1} ord";
+        }
+    } catch {}
+
+    // Update text infos
+    textInfos.innerHTML = content.replace("{0}", nbChars).replace("{1}", nbWords);
+}
+
 // Init
 LanguageEditor.prototype.init = function() {
     this.setLanguages();
@@ -526,6 +612,6 @@ LanguageEditor.prototype.init = function() {
     // Focus on editor
     this.getEditor().focus();
 
-    // For testing purposes, check the text
-    this.check();
+    // Update textInfos
+    this.updateTextInfos();
 }
