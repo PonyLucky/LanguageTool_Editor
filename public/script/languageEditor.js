@@ -1,3 +1,14 @@
+// LANGUAGE global variable
+var LANGUAGE = navigator.language || navigator.userLanguage
+// If language contains a dash, remove the last part
+if (LANGUAGE.indexOf('-') != -1) {
+    LANGUAGE = LANGUAGE.split('-')[0];
+}
+// If language if not supported, set it to English
+if (LANGUAGE == null) {
+    LANGUAGE = 'en';
+}
+
 // Utility function to get and restore the caret position
 // FROM: https://stackoverflow.com/a/38479462
 function saveCaretPosition(context){
@@ -237,7 +248,7 @@ LanguageEditor.prototype.message = function(show=false) {
             try {
                 // Change text depending of browser language
                 // fr, es, de, it, pt, ru, pl, nl, ja, zh, ko, sv, da
-                switch (navigator.language || navigator.userLanguage) {
+                switch (LANGUAGE) {
                     case "fr":
                         text = "Pas de remplacements...";
                         break;
@@ -295,7 +306,7 @@ LanguageEditor.prototype.message = function(show=false) {
         try {
             // Change text depending of browser language
             // fr, es, de, it, pt, ru, pl, nl, ja, zh, ko, sv, da
-            switch (navigator.language || navigator.userLanguage) {
+            switch (LANGUAGE) {
                 case "fr":
                     textIgnore = "Ignorer";
                     break;
@@ -548,7 +559,7 @@ LanguageEditor.prototype.updateTextInfos = function() {
     try {
         // Change text depending of browser language
         // fr, es, de, it, pt, ru, pl, nl, ja, zh, ko, sv, da
-        switch (navigator.language || navigator.userLanguage) {
+        switch (LANGUAGE) {
             case "fr":
                 content = "{0} caractères, {1} mots";
                 break;
@@ -602,7 +613,7 @@ LanguageEditor.prototype.init = function() {
     this.getEditor().addEventListener("input", this.check.bind(this));
     // Set selected language from browser language
     var language = this.getLanguages();
-    var browserLanguage = navigator.language || navigator.userLanguage;
+    var browserLanguage = LANGUAGE;
     for (var i = 0; i < language.options.length; i++) {
         if (language.options[i].value == browserLanguage) {
             language.selectedIndex = i;
