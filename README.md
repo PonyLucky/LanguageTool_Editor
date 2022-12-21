@@ -1,6 +1,8 @@
 # LanguageTool_Editor
 Lets you easily edit text to see if this very text is correct using LanguageTool.
 
+![Example of the editor.](./imgs/example.png "Example of the editor")
+
 ## HTML page
 HTML page to enter the text:
 - HTML only (Spell check by LanguageTool web extension): [URL](https://github.com/PonyLucky/LanguageTool_Editor/tree/HTML-page).
