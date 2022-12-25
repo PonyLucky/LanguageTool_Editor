@@ -1,10 +1,12 @@
-const URLServer = "http://192.168.1.105:8010";
+console.log("Environment variables: ", window.env);
+API_URL = window.env.API_URL;
+console.log("API_URL: " + API_URL);
 
 // When content is loaded
 document.addEventListener("DOMContentLoaded", function() {
     // Create a new language editor
     var languageEditor = new LanguageEditor(
-        url=URLServer,
+        url=API_URL,
         level='picky',
         idEditor='editor',
         idLanguage='languages',
